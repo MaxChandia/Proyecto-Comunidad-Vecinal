@@ -12,10 +12,17 @@ class User (models.Model):
 
 class Courses(models.Model):
     course_name = models.CharField(max_length=100)
-    
 
-class Neighborhood_Headquarters(models.Model):
-    schedule = models.CharField(max_length=100)
+class Enrollment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    
+class Evaluations(models.Model):
+    enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
+    evaluation_score = models.FloatField()
 
 class Activities(models.Model):
     activity_name = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, default='Descripción no disponible')
+    register_date = models.DateTimeField(auto_now_add=True, default= 'día no disponible')
+    
